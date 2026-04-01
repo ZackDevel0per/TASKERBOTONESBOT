@@ -55,17 +55,13 @@ author = "agent"
 mode = "sequential"
 
 [workflows.workflow.metadata]
-outputType = "webview"
+outputType = "console"
 artifactId = "3B4_FFSkEVBkAeYMFRJ2e"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "pnpm --filter @workspace/api-server run dev"
-cwd = "./artifacts/api-server"
+args = "PORT=8080 pnpm --filter @workspace/api-server run dev"
 waitForPort = 8080
-
-[workflows.workflow.tasks.env]
-PORT = "8080"
 
 [[workflows.workflow]]
 name = "Project"
@@ -75,6 +71,10 @@ author = "agent"
 [[workflows.workflow.tasks]]
 task = "workflow.run"
 args = "Admin Panel"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "artifacts/api-server: API Server"
 
 [[workflows.workflow]]
 name = "Admin Panel"
