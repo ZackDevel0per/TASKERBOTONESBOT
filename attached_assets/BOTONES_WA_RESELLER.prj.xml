@@ -620,12 +620,11 @@ Tiempo estimado: 5-10 minutos.</Str>
 
         <Project sr="proj0" ve="2">
                 <cdate>1743500000200</cdate>
-                <edate>1743500000200</edate>
-                <id>0</id>
-                <nme>BOTONES WA RESELLER</nme>
-                <ProfileIds>701,702,703</ProfileIds>
-                <TaskIDs>701,702,703,710,711,712,713,714,715</TaskIDs>
+                <name>BOTONES WA RESELLER</name>
+                <pids>701,702,703</pids>
+                <psort>Alpha</psort>
                 <scenes>Botones Reseller WA</scenes>
+                <tids>701,702,703,710,711,712,713,714,715</tids>
         </Project>
 
 </TaskerData>
