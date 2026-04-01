@@ -1,0 +1,588 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<TaskerData sr="" dvi="1" tv="6.4.16">
+
+	<!-- ══════════════════════════════════════════════════════════
+	     PROYECTO: BOTONES WA RESELLER
+	     Versión:  1.0
+	     
+	     Muestra botones flotantes al abrir WhatsApp en cualquier
+	     chat. Al presionar un botón, el bot envía el mensaje
+	     predefinido AL CHAT ACTUAL, automáticamente.
+	     
+	     VARIABLES GLOBALES A CONFIGURAR:
+	       %TASKER_BOT_TOKEN  → Token del API (default: cambia_este_token_seguro_2024)
+	       %BOT_TENANT_ID     → ID del tenant en el panel admin (dejar vacío si solo hay uno)
+	       %CHAT_TELEFONO     → Se llena automáticamente con el número del chat activo
+	     
+	     REQUISITOS:
+	       - AutoNotification (por AutoApps)
+	       - TouchTask (por Balda)
+	     ══════════════════════════════════════════════════════════ -->
+
+	<!-- ══════ PERFILES ══════ -->
+
+	<!-- 1. Mostrar botones cuando WA/WA Business está en primer plano -->
+	<Profile sr="prof701" ve="2">
+		<cdate>1743500000000</cdate>
+		<edate>1743500000000</edate>
+		<flags>8</flags>
+		<id>701</id>
+		<mid0>701</mid0>
+		<nme>WA Reseller: Mostrar Botones</nme>
+		<Event sr="con0" ve="2">
+			<code>386825958</code>
+			<pri>0</pri>
+			<Bundle sr="arg0">
+				<Vals sr="val">
+					<com.balda.meteotask.extra.INT_VERSION_CODE>103</com.balda.meteotask.extra.INT_VERSION_CODE>
+					<com.balda.meteotask.extra.INT_VERSION_CODE-type>java.lang.Integer</com.balda.meteotask.extra.INT_VERSION_CODE-type>
+					<com.balda.meteotask.extra.OPERATION>5</com.balda.meteotask.extra.OPERATION>
+					<com.balda.meteotask.extra.OPERATION-type>java.lang.Integer</com.balda.meteotask.extra.OPERATION-type>
+					<com.balda.touchtask.extra.PACKAGES>&lt;StringArrayList sr=""&gt;&lt;_arrlst_com.balda.touchtask.extra.PACKAGES0&gt;com.whatsapp.w4b&lt;/_arrlst_com.balda.touchtask.extra.PACKAGES0&gt;&lt;_arrlst_com.balda.touchtask.extra.PACKAGES1&gt;com.whatsapp&lt;/_arrlst_com.balda.touchtask.extra.PACKAGES1&gt;&lt;/StringArrayList&gt;</com.balda.touchtask.extra.PACKAGES>
+					<com.balda.touchtask.extra.PACKAGES-type>java.util.ArrayList</com.balda.touchtask.extra.PACKAGES-type>
+					<com.balda.touchtask.extra.REGEX>false</com.balda.touchtask.extra.REGEX>
+					<com.balda.touchtask.extra.REGEX-type>java.lang.Boolean</com.balda.touchtask.extra.REGEX-type>
+					<com.twofortyfouram.locale.intent.extra.BLURB>Update of WhatsApp Business,WhatsApp</com.twofortyfouram.locale.intent.extra.BLURB>
+					<com.twofortyfouram.locale.intent.extra.BLURB-type>java.lang.String</com.twofortyfouram.locale.intent.extra.BLURB-type>
+					<net.dinglisch.android.tasker.RELEVANT_VARIABLES>&lt;StringArray sr=""&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES0&gt;%ttapp
+App name
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES0&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES1&gt;%ttwin
+Window name
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES1&gt;&lt;/StringArray&gt;</net.dinglisch.android.tasker.RELEVANT_VARIABLES>
+					<net.dinglisch.android.tasker.RELEVANT_VARIABLES-type>[Ljava.lang.String;</net.dinglisch.android.tasker.RELEVANT_VARIABLES-type>
+					<net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS>com.balda.touchtask.extra.PACKAGES</net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS>
+					<net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS-type>java.lang.String</net.dinglisch.android.tasker.extras.VARIABLE_REPLACE_KEYS-type>
+					<net.dinglisch.android.tasker.subbundled>true</net.dinglisch.android.tasker.subbundled>
+					<net.dinglisch.android.tasker.subbundled-type>java.lang.Boolean</net.dinglisch.android.tasker.subbundled-type>
+				</Vals>
+			</Bundle>
+			<Str sr="arg1" ve="3">com.balda.touchtask</Str>
+			<Str sr="arg2" ve="3">com.balda.touchtask.ui.QueryUiUpdate</Str>
+			<Int sr="arg3" val="1"/>
+		</Event>
+	</Profile>
+
+	<!-- 2. Ocultar botones cuando el usuario sale de WhatsApp -->
+	<Profile sr="prof702" ve="2">
+		<cdate>1743500000001</cdate>
+		<clp>true</clp>
+		<edate>1743500000001</edate>
+		<flags>8</flags>
+		<id>702</id>
+		<mid1>702</mid1>
+		<nme>WA Reseller: Ocultar Botones</nme>
+		<App sr="con0" ve="2">
+			<cls0>com.whatsapp.Main</cls0>
+			<cls1>com.whatsapp.Main</cls1>
+			<flags>2</flags>
+			<label0>WhatsApp</label0>
+			<label1>WA Business</label1>
+			<pkg0>com.whatsapp</pkg0>
+			<pkg1>com.whatsapp.w4b</pkg1>
+		</App>
+	</Profile>
+
+	<!-- 3. Capturar número del chat cuando llega un mensaje de WA -->
+	<Profile sr="prof703" ve="2">
+		<cdate>1743500000002</cdate>
+		<clp>true</clp>
+		<edate>1743500000002</edate>
+		<flags>8</flags>
+		<id>703</id>
+		<mid0>703</mid0>
+		<nme>WA Reseller: Capturar Chat</nme>
+		<Event sr="con0" ve="2">
+			<code>1520257414</code>
+			<pri>0</pri>
+			<Bundle sr="arg0">
+				<Vals sr="val">
+					<AllFields>false</AllFields>
+					<AllFields-type>java.lang.Boolean</AllFields-type>
+					<App>&lt;null&gt;</App>
+					<App-type>java.lang.String</App-type>
+					<BigImageNames>&lt;null&gt;</BigImageNames>
+					<BigImageNames-type>java.lang.String</BigImageNames-type>
+					<BigTextNames>&lt;null&gt;</BigTextNames>
+					<BigTextNames-type>java.lang.String</BigTextNames-type>
+					<CancelReason>&lt;StringArray sr=""/&gt;</CancelReason>
+					<CancelReason-type>[Ljava.lang.String;</CancelReason-type>
+					<CaseinsensitiveApp>false</CaseinsensitiveApp>
+					<CaseinsensitiveApp-type>java.lang.Boolean</CaseinsensitiveApp-type>
+					<CaseinsensitiveCategoryName>false</CaseinsensitiveCategoryName>
+					<CaseinsensitiveCategoryName-type>java.lang.Boolean</CaseinsensitiveCategoryName-type>
+					<CaseinsensitivePackage>false</CaseinsensitivePackage>
+					<CaseinsensitivePackage-type>java.lang.Boolean</CaseinsensitivePackage-type>
+					<CaseinsensitiveText>false</CaseinsensitiveText>
+					<CaseinsensitiveText-type>java.lang.Boolean</CaseinsensitiveText-type>
+					<CaseinsensitiveTitle>false</CaseinsensitiveTitle>
+					<CaseinsensitiveTitle-type>java.lang.Boolean</CaseinsensitiveTitle-type>
+					<CategoryImportance>&lt;StringArray sr=""/&gt;</CategoryImportance>
+					<CategoryImportance-type>[Ljava.lang.String;</CategoryImportance-type>
+					<CategoryName>&lt;null&gt;</CategoryName>
+					<CategoryName-type>java.lang.String</CategoryName-type>
+					<ExactApp>false</ExactApp>
+					<ExactApp-type>java.lang.Boolean</ExactApp-type>
+					<ExactCategoryName>false</ExactCategoryName>
+					<ExactCategoryName-type>java.lang.Boolean</ExactCategoryName-type>
+					<ExactPackage>false</ExactPackage>
+					<ExactPackage-type>java.lang.Boolean</ExactPackage-type>
+					<ExactText>false</ExactText>
+					<ExactText-type>java.lang.Boolean</ExactText-type>
+					<ExactTitle>false</ExactTitle>
+					<ExactTitle-type>java.lang.Boolean</ExactTitle-type>
+					<HasMediaSession>false</HasMediaSession>
+					<HasMediaSession-type>java.lang.Boolean</HasMediaSession-type>
+					<HasReplyAction>false</HasReplyAction>
+					<HasReplyAction-type>java.lang.Boolean</HasReplyAction-type>
+					<Id>&lt;null&gt;</Id>
+					<Id-type>java.lang.String</Id-type>
+					<IgnoreGroupSummary>true</IgnoreGroupSummary>
+					<IgnoreGroupSummary-type>java.lang.Boolean</IgnoreGroupSummary-type>
+					<ImageNames>&lt;null&gt;</ImageNames>
+					<ImageNames-type>java.lang.String</ImageNames-type>
+					<InterceptApps>&lt;StringArray sr=""&gt;&lt;_array_InterceptApps0&gt;com.whatsapp.w4b&lt;/_array_InterceptApps0&gt;&lt;_array_InterceptApps1&gt;com.whatsapp&lt;/_array_InterceptApps1&gt;&lt;/StringArray&gt;</InterceptApps>
+					<InterceptApps-type>[Ljava.lang.String;</InterceptApps-type>
+					<InterceptPersistent>&lt;null&gt;</InterceptPersistent>
+					<InterceptPersistent-type>java.lang.String</InterceptPersistent-type>
+					<InvertApp>false</InvertApp>
+					<InvertApp-type>java.lang.Boolean</InvertApp-type>
+					<InvertCategoryName>false</InvertCategoryName>
+					<InvertCategoryName-type>java.lang.Boolean</InvertCategoryName-type>
+					<InvertPackage>false</InvertPackage>
+					<InvertPackage-type>java.lang.Boolean</InvertPackage-type>
+					<InvertText>false</InvertText>
+					<InvertText-type>java.lang.Boolean</InvertText-type>
+					<InvertTitle>false</InvertTitle>
+					<InvertTitle-type>java.lang.Boolean</InvertTitle-type>
+					<PackageName>&lt;null&gt;</PackageName>
+					<PackageName-type>java.lang.String</PackageName-type>
+					<PersistentId>&lt;null&gt;</PersistentId>
+					<PersistentId-type>java.lang.String</PersistentId-type>
+					<RegexApp>false</RegexApp>
+					<RegexApp-type>java.lang.Boolean</RegexApp-type>
+					<RegexCategoryName>false</RegexCategoryName>
+					<RegexCategoryName-type>java.lang.Boolean</RegexCategoryName-type>
+					<RegexPackage>false</RegexPackage>
+					<RegexPackage-type>java.lang.Boolean</RegexPackage-type>
+					<RegexText>false</RegexText>
+					<RegexText-type>java.lang.Boolean</RegexText-type>
+					<RegexTitle>false</RegexTitle>
+					<RegexTitle-type>java.lang.Boolean</RegexTitle-type>
+					<Text>&lt;null&gt;</Text>
+					<Text-type>java.lang.String</Text-type>
+					<Title>&lt;null&gt;</Title>
+					<Title-type>java.lang.String</Title-type>
+					<com.twofortyfouram.locale.intent.extra.BLURB>Apps: WhatsApp Business, WhatsApp | Solo chats individuales</com.twofortyfouram.locale.intent.extra.BLURB>
+					<com.twofortyfouram.locale.intent.extra.BLURB-type>java.lang.String</com.twofortyfouram.locale.intent.extra.BLURB-type>
+					<net.dinglisch.android.tasker.RELEVANT_VARIABLES>&lt;StringArray sr=""&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES0&gt;%antitle
+Notification Title
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES0&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES1&gt;%antext
+Notification Text
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES1&gt;&lt;_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES2&gt;%anpeople
+Notification People
+&lt;/_array_net.dinglisch.android.tasker.RELEVANT_VARIABLES2&gt;&lt;/StringArray&gt;</net.dinglisch.android.tasker.RELEVANT_VARIABLES>
+					<net.dinglisch.android.tasker.RELEVANT_VARIABLES-type>[Ljava.lang.String;</net.dinglisch.android.tasker.RELEVANT_VARIABLES-type>
+					<net.dinglisch.android.tasker.subbundled>true</net.dinglisch.android.tasker.subbundled>
+					<net.dinglisch.android.tasker.subbundled-type>java.lang.Boolean</net.dinglisch.android.tasker.subbundled-type>
+				</Vals>
+			</Bundle>
+			<Str sr="arg1" ve="3">com.joaomgcd.autonotification</Str>
+			<Str sr="arg2" ve="3">com.joaomgcd.autonotification.activity.ActivityConfigNotificationIntercept</Str>
+			<Int sr="arg3" val="20"/>
+			<Int sr="arg4" val="1"/>
+		</Event>
+	</Profile>
+
+	<!-- ══════ TAREAS ══════ -->
+
+	<!-- TASK 701: Mostrar overlay de botones -->
+	<Task sr="task701">
+		<cdate>1743500000010</cdate>
+		<edate>1743500000010</edate>
+		<id>701</id>
+		<nme>WA Reseller: Mostrar Overlay</nme>
+		<pri>10</pri>
+		<!-- Destruir escena anterior si existe (evita duplicados) -->
+		<Action sr="act0" ve="7">
+			<code>50</code>
+			<Str sr="arg0" ve="3">Botones Reseller WA</Str>
+			<Int sr="arg1" val="2"/>
+		</Action>
+		<!-- Mostrar la escena flotante -->
+		<Action sr="act1" ve="7">
+			<code>49</code>
+			<Str sr="arg0" ve="3">Botones Reseller WA</Str>
+			<Int sr="arg1" val="4"/>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+			<Int sr="arg5" val="0"/>
+			<Int sr="arg6" val="1"/>
+		</Action>
+	</Task>
+
+	<!-- TASK 702: Ocultar overlay de botones -->
+	<Task sr="task702">
+		<cdate>1743500000011</cdate>
+		<edate>1743500000011</edate>
+		<id>702</id>
+		<nme>WA Reseller: Ocultar Overlay</nme>
+		<pri>10</pri>
+		<Action sr="act0" ve="7">
+			<code>50</code>
+			<Str sr="arg0" ve="3">Botones Reseller WA</Str>
+			<Int sr="arg1" val="2"/>
+		</Action>
+	</Task>
+
+	<!-- TASK 703: Capturar número de teléfono del chat actual -->
+	<Task sr="task703">
+		<cdate>1743500000012</cdate>
+		<edate>1743500000012</edate>
+		<id>703</id>
+		<nme>WA Reseller: Guardar Chat Actual</nme>
+		<pri>10</pri>
+		<!-- Guardar el título de la notificación (nombre o número) -->
+		<Action sr="act0" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%CHAT_NOMBRE_RAW</Str>
+			<Str sr="arg1" ve="3">%antitle</Str>
+			<Int sr="arg2" val="0"/>
+		</Action>
+		<!-- Si el título ES un número de teléfono (con o sin +) → guardarlo como teléfono -->
+		<Action sr="act1" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%CHAT_TELEFONO</Str>
+			<Str sr="arg1" ve="3">%antitle</Str>
+			<Int sr="arg2" val="0"/>
+		</Action>
+		<!-- Limpiar el + del inicio si existe (el bot espera número sin +) -->
+		<Action sr="act2" ve="7">
+			<code>598</code>
+			<Str sr="arg0" ve="3">%CHAT_TELEFONO</Str>
+			<Str sr="arg1" ve="3">^\+</Str>
+			<Str sr="arg2" ve="3"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="1"/>
+		</Action>
+		<!-- Flash discreto mostrando qué chat quedó capturado -->
+		<Action sr="act3" ve="7">
+			<code>30</code>
+			<Int sr="arg0" val="0"/>
+			<Int sr="arg1" val="1"/>
+			<Int sr="arg2" val="0"/>
+			<Int sr="arg3" val="0"/>
+			<Int sr="arg4" val="0"/>
+		</Action>
+		<Action sr="act4" ve="7">
+			<code>38</code>
+			<Str sr="arg0" ve="3">📲 Chat: %CHAT_NOMBRE_RAW</Str>
+			<Int sr="arg1" val="0"/>
+		</Action>
+	</Task>
+
+	<!-- TASK 710: Enviar al bot (tarea central usada por todos los botones) -->
+	<Task sr="task710">
+		<cdate>1743500000020</cdate>
+		<edate>1743500000020</edate>
+		<id>710</id>
+		<nme>WA Reseller: Enviar Al Bot</nme>
+		<pri>10</pri>
+		<!-- Verificar que hay un chat capturado -->
+		<Action sr="act0" ve="7">
+			<code>37</code>
+			<Str sr="arg0" ve="3">%CHAT_TELEFONO</Str>
+			<Int sr="arg1" val="1"/>
+			<Str sr="arg2" ve="3">~R^\d+$</Str>
+		</Action>
+		<!-- Si no hay número válido, avisar y parar -->
+		<Action sr="act1" ve="7">
+			<code>38</code>
+			<Str sr="arg0" ve="3">❌ Sin chat. Espera que el cliente te escriba primero.</Str>
+			<Int sr="arg1" val="1"/>
+		</Action>
+		<Action sr="act2" ve="7">
+			<code>37</code>
+			<Int sr="arg0" val="0"/>
+			<Int sr="arg1" val="0"/>
+			<Str sr="arg2" ve="3"/>
+		</Action>
+		<!-- HTTP POST al bot via JavaScriptlet (funciona en todos Tasker) -->
+		<Action sr="act3" ve="7">
+			<code>129</code>
+			<Str sr="arg0" ve="3">
+var token = global('TASKER_BOT_TOKEN') || 'cambia_este_token_seguro_2024';
+var tenantId = global('BOT_TENANT_ID') || '';
+var telefono = global('CHAT_TELEFONO');
+var msg = local('MSG_BOT');
+
+try {
+  var urlStr = 'https://64e5f5b3-9772-4a1c-90fa-535b79598804-00-1k1euif5wfvym.kirk.replit.dev/api/bot/accion';
+  var url = new java.net.URL(urlStr);
+  var conn = url.openConnection();
+  conn.setRequestMethod('POST');
+  conn.setDoOutput(true);
+  conn.setRequestProperty('Content-Type', 'application/json');
+  conn.setConnectTimeout(15000);
+  conn.setReadTimeout(15000);
+
+  var bodyData = {'token': token, 'telefono': telefono, 'mensaje': msg};
+  if (tenantId !== '') bodyData.tenantId = tenantId;
+  var body = JSON.stringify(bodyData);
+
+  var os = conn.getOutputStream();
+  os.write(new java.lang.String(body).getBytes('UTF-8'));
+  os.close();
+
+  var code = conn.getResponseCode();
+  if (code >= 200 &amp;&amp; code &lt; 300) {
+    setLocal('BOT_OK', 'true');
+  } else {
+    setLocal('BOT_OK', 'error_' + code);
+  }
+} catch(e) {
+  setLocal('BOT_OK', 'excepcion: ' + e.message);
+}
+			</Str>
+			<Str sr="arg1" ve="3"/>
+			<Int sr="arg2" val="1"/>
+			<Int sr="arg3" val="45"/>
+		</Action>
+		<!-- Feedback visual según resultado -->
+		<Action sr="act4" ve="7">
+			<code>38</code>
+			<Str sr="arg0" ve="3">✅ Enviado a %CHAT_NOMBRE_RAW</Str>
+			<Int sr="arg1" val="0"/>
+		</Action>
+		<Action sr="act5" ve="7">
+			<code>37</code>
+			<Str sr="arg0" ve="3">%BOT_OK</Str>
+			<Int sr="arg1" val="0"/>
+			<Str sr="arg2" ve="3">~R^true$</Str>
+		</Action>
+		<Action sr="act6" ve="7">
+			<code>38</code>
+			<Str sr="arg0" ve="3">⚠️ Error: %BOT_OK</Str>
+			<Int sr="arg1" val="1"/>
+		</Action>
+	</Task>
+
+	<!-- TASK 711: Botón SALUDO -->
+	<Task sr="task711">
+		<cdate>1743500000021</cdate>
+		<edate>1743500000021</edate>
+		<id>711</id>
+		<nme>WA Reseller: Cmd Saludo</nme>
+		<pri>10</pri>
+		<Action sr="act0" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%MSG_BOT</Str>
+			<Str sr="arg1" ve="3">👋 Hola! Soy el asistente de *ZKTV Bolivia*. ¿En qué te puedo ayudar hoy?
+
+Escribe el número de tu consulta:
+*1* - Ver planes disponibles
+*2* - Renovar servicio
+*3* - Soporte técnico</Str>
+			<Int sr="arg2" val="0"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>130</code>
+			<Str sr="arg0" ve="3">WA Reseller: Enviar Al Bot</Str>
+			<Int sr="arg1" val="10"/>
+			<Int sr="arg10" val="1"/>
+			<Str sr="arg2" ve="3">MSG_BOT:%MSG_BOT</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Int sr="arg5" val="0"/>
+			<Int sr="arg6" val="1"/>
+			<Str sr="arg7" ve="3"/>
+			<Int sr="arg8" val="1"/>
+			<Int sr="arg9" val="1"/>
+		</Action>
+	</Task>
+
+	<!-- TASK 712: Botón PLANES -->
+	<Task sr="task712">
+		<cdate>1743500000022</cdate>
+		<edate>1743500000022</edate>
+		<id>712</id>
+		<nme>WA Reseller: Cmd Planes</nme>
+		<pri>10</pri>
+		<Action sr="act0" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%MSG_BOT</Str>
+			<Str sr="arg1" ve="3">📺 *Nuestros planes IPTV:*
+
+*1MES* - 1 mes → escribe *1MES*
+*3MESES* - 3 meses → escribe *3MESES*
+*6MESES* - 6 meses → escribe *6MESES*
+*12MESES* - 12 meses → escribe *12MESES*
+
+_Responde con el código del plan para continuar._</Str>
+			<Int sr="arg2" val="0"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>130</code>
+			<Str sr="arg0" ve="3">WA Reseller: Enviar Al Bot</Str>
+			<Int sr="arg1" val="10"/>
+			<Int sr="arg10" val="1"/>
+			<Str sr="arg2" ve="3">MSG_BOT:%MSG_BOT</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Int sr="arg5" val="0"/>
+			<Int sr="arg6" val="1"/>
+			<Str sr="arg7" ve="3"/>
+			<Int sr="arg8" val="1"/>
+			<Int sr="arg9" val="1"/>
+		</Action>
+	</Task>
+
+	<!-- TASK 713: Botón SOPORTE -->
+	<Task sr="task713">
+		<cdate>1743500000023</cdate>
+		<edate>1743500000023</edate>
+		<id>713</id>
+		<nme>WA Reseller: Cmd Soporte</nme>
+		<pri>10</pri>
+		<Action sr="act0" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%MSG_BOT</Str>
+			<Str sr="arg1" ve="3">🛠️ *Soporte técnico ZKTV*
+
+Estamos aquí para ayudarte. Por favor cuéntanos:
+
+• ¿Cuál es el problema que tienes?
+• ¿En qué dispositivo ocurre?
+• ¿Desde cuándo tienes el problema?
+
+Un agente te atenderá en breve. ¡Gracias! 🙏</Str>
+			<Int sr="arg2" val="0"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>130</code>
+			<Str sr="arg0" ve="3">WA Reseller: Enviar Al Bot</Str>
+			<Int sr="arg1" val="10"/>
+			<Int sr="arg10" val="1"/>
+			<Str sr="arg2" ve="3">MSG_BOT:%MSG_BOT</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Int sr="arg5" val="0"/>
+			<Int sr="arg6" val="1"/>
+			<Str sr="arg7" ve="3"/>
+			<Int sr="arg8" val="1"/>
+			<Int sr="arg9" val="1"/>
+		</Action>
+	</Task>
+
+	<!-- TASK 714: Botón PAGO RECIBIDO -->
+	<Task sr="task714">
+		<cdate>1743500000024</cdate>
+		<edate>1743500000024</edate>
+		<id>714</id>
+		<nme>WA Reseller: Cmd Pago OK</nme>
+		<pri>10</pri>
+		<Action sr="act0" ve="7">
+			<code>547</code>
+			<Str sr="arg0" ve="3">%MSG_BOT</Str>
+			<Str sr="arg1" ve="3">✅ *¡Pago recibido correctamente!*
+
+Estamos procesando tu activación. En unos minutos recibirás tus credenciales de acceso.
+
+_Tiempo estimado: 5-10 minutos._</Str>
+			<Int sr="arg2" val="0"/>
+		</Action>
+		<Action sr="act1" ve="7">
+			<code>130</code>
+			<Str sr="arg0" ve="3">WA Reseller: Enviar Al Bot</Str>
+			<Int sr="arg1" val="10"/>
+			<Int sr="arg10" val="1"/>
+			<Str sr="arg2" ve="3">MSG_BOT:%MSG_BOT</Str>
+			<Str sr="arg3" ve="3"/>
+			<Str sr="arg4" ve="3"/>
+			<Int sr="arg5" val="0"/>
+			<Int sr="arg6" val="1"/>
+			<Str sr="arg7" ve="3"/>
+			<Int sr="arg8" val="1"/>
+			<Int sr="arg9" val="1"/>
+		</Action>
+	</Task>
+
+	<!-- TASK 715: Botón CERRAR OVERLAY -->
+	<Task sr="task715">
+		<cdate>1743500000025</cdate>
+		<edate>1743500000025</edate>
+		<id>715</id>
+		<nme>WA Reseller: Cerrar Overlay</nme>
+		<pri>10</pri>
+		<Action sr="act0" ve="7">
+			<code>50</code>
+			<Str sr="arg0" ve="3">Botones Reseller WA</Str>
+			<Int sr="arg1" val="2"/>
+		</Action>
+	</Task>
+
+	<!-- ══════ ESCENA: Botones flotantes ══════ -->
+
+	<Scene sr="Botones Reseller WA">
+		<cdate>1743500000100</cdate>
+		<edate>1743500000100</edate>
+		<nme>Botones Reseller WA</nme>
+		<ListElement sr="uid0" ve="3">
+			<ItemClickTask>WA Reseller: Cerrar Overlay</ItemClickTask>
+			<Str sr="PositionAndSize">5,5,90,35</Str>
+			<Str sr="TextColour">#FF0000</Str>
+			<Str sr="Colour">#CC000000</Str>
+			<Str sr="TextSize">14</Str>
+			<Str sr="Text">✖ Cerrar</Str>
+			<Str sr="uid">uid0</Str>
+		</ListElement>
+		<ListElement sr="uid1" ve="3">
+			<ItemClickTask>WA Reseller: Cmd Saludo</ItemClickTask>
+			<Str sr="PositionAndSize">5,45,90,55</Str>
+			<Str sr="TextColour">#FFFFFF</Str>
+			<Str sr="Colour">#FF1565C0</Str>
+			<Str sr="TextSize">15</Str>
+			<Str sr="Text">👋 Saludo</Str>
+			<Str sr="uid">uid1</Str>
+		</ListElement>
+		<ListElement sr="uid2" ve="3">
+			<ItemClickTask>WA Reseller: Cmd Planes</ItemClickTask>
+			<Str sr="PositionAndSize">5,105,90,55</Str>
+			<Str sr="TextColour">#FFFFFF</Str>
+			<Str sr="Colour">#FF6A1FAD</Str>
+			<Str sr="TextSize">15</Str>
+			<Str sr="Text">📋 Planes</Str>
+			<Str sr="uid">uid2</Str>
+		</ListElement>
+		<ListElement sr="uid3" ve="3">
+			<ItemClickTask>WA Reseller: Cmd Pago OK</ItemClickTask>
+			<Str sr="PositionAndSize">5,165,90,55</Str>
+			<Str sr="TextColour">#FFFFFF</Str>
+			<Str sr="Colour">#FF2E7D32</Str>
+			<Str sr="TextSize">15</Str>
+			<Str sr="Text">✅ Pago OK</Str>
+			<Str sr="uid">uid3</Str>
+		</ListElement>
+		<ListElement sr="uid4" ve="3">
+			<ItemClickTask>WA Reseller: Cmd Soporte</ItemClickTask>
+			<Str sr="PositionAndSize">5,225,90,55</Str>
+			<Str sr="TextColour">#FFFFFF</Str>
+			<Str sr="Colour">#FFF57F17</Str>
+			<Str sr="TextSize">15</Str>
+			<Str sr="Text">🛠 Soporte</Str>
+			<Str sr="uid">uid4</Str>
+		</ListElement>
+	</Scene>
+
+	<!-- ══════ PROYECTO ══════ -->
+
+	<Project sr="proj0" ve="2">
+		<cdate>1743500000200</cdate>
+		<edate>1743500000200</edate>
+		<id>0</id>
+		<nme>BOTONES WA RESELLER</nme>
+		<ProfileIds>701,702,703</ProfileIds>
+		<TaskIDs>701,702,703,710,711,712,713,714,715</TaskIDs>
+	</Project>
+
+</TaskerData>
