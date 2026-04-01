@@ -12,3 +12,9 @@ id = "uQDpGSn1S3jiddnmqSrBY"
 uri = "file://guia-migracion-vps.txt"
 type = "text"
 title = "Guía de migración a VPS propio"
+
+[[outputs]]
+id = "s23sMe-C1tAt6YeG8dkRt"
+uri = "file://attached_assets/BOTONES_WA_RESELLER.prj.xml"
+type = "unspecified"
+title = "BOTONES_WA_RESELLER.prj.xml (corregido)"
