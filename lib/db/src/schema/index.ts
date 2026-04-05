@@ -38,6 +38,12 @@ export const tenantsTable = pgTable("tenants", {
   veripagosUsername: text("veripagos_username"),
   veripagosPassword: text("veripagos_password"),
 
+  // Banco Económico — API QR Simple (AES-256 + base64 para cuenta y contraseña)
+  banecoUsername: text("baneco_username"),
+  banecoPassword: text("baneco_password"),
+  banecoAesKey: text("baneco_aes_key"),
+  banecoCuenta: text("baneco_cuenta"),
+
   // Personalización de respuestas y planes (JSON)
   planesJson: text("planes_json"),
 

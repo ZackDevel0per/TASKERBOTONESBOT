@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCreateTenant } from "@/hooks/use-api";
 import { useLocation } from "wouter";
-import { PlusCircle, Building, KeyRound, Database, Bell, ListChecks, QrCode } from "lucide-react";
+import { PlusCircle, Building, KeyRound, Database, Bell, ListChecks, QrCode, Landmark } from "lucide-react";
 
 // Planes base del sistema — mismos para todos, solo varía el precio
 const PLANES_BASE = [
@@ -202,8 +202,37 @@ export function NuevoTenant() {
           </div>
         </Section>
 
+        {/* Banco Económico */}
+        <Section title="6. Banco Económico — API QR Simple" icon={Landmark}>
+          <p className="text-xs text-muted-foreground mb-4">
+            Integración con la API del Banco Económico para generar QR de cobro. La contraseña y el número de cuenta
+            se cifran con <strong className="text-white">AES-256</strong> antes de enviarse al banco — se guardan en texto plano aquí y se cifran en el momento de cada transacción.
+            El token de acceso se renueva automáticamente en cada operación (vence cada 30 minutos).
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label className="label-base">Usuario Banco Económico</label>
+              <input name="banecoUsername" className="input-base" placeholder="ej: 26551010" />
+            </div>
+            <div>
+              <label className="label-base">Contraseña</label>
+              <input type="password" name="banecoPassword" className="input-base" placeholder="••••••••" />
+            </div>
+            <div>
+              <label className="label-base">Clave AES-256 (proporcionada por el banco)</label>
+              <input name="banecoAesKey" className="input-base font-mono text-xs" placeholder="ej: 40A318B299F245C2B697176723088629" />
+              <p className="text-xs text-muted-foreground mt-1">Llave de 32 bytes que el banco entrega para cifrar los datos sensibles.</p>
+            </div>
+            <div>
+              <label className="label-base">Número de Cuenta</label>
+              <input name="banecoCuenta" className="input-base font-mono" placeholder="ej: 1234567890" />
+              <p className="text-xs text-muted-foreground mt-1">Cuenta corriente o caja de ahorro donde se acreditarán los pagos.</p>
+            </div>
+          </div>
+        </Section>
+
         {/* Notificaciones */}
-        <Section title="6. Notificaciones" icon={Bell}>
+        <Section title="7. Notificaciones" icon={Bell}>
           <div className="grid grid-cols-1 gap-6 mb-6">
             <div>
               <label className="label-base">Enlace del Grupo de Anuncios</label>
