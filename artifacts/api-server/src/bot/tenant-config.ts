@@ -33,6 +33,12 @@ export interface TenantConfig {
   veripagosUsername: string | null;
   veripagosPassword: string | null;
 
+  // Banco Económico — API QR Simple
+  banecoUsername: string | null;
+  banecoPassword: string | null;
+  banecoAesKey: string | null;
+  banecoCuenta: string | null;
+
   // Planes personalizados (sobreescribe los defaults)
   planes: TenantPlan[] | null;
 
@@ -76,6 +82,10 @@ export function tenantFromDb(row: {
   gmailRemitenteFiltro: string | null;
   veripagosUsername: string | null;
   veripagosPassword: string | null;
+  banecoUsername: string | null;
+  banecoPassword: string | null;
+  banecoAesKey: string | null;
+  banecoCuenta: string | null;
   planesJson: string | null;
   qrPagoUrl: string | null;
   pushoverUserKey: string | null;
@@ -107,6 +117,10 @@ export function tenantFromDb(row: {
     gmailRemitenteFiltro: row.gmailRemitenteFiltro,
     veripagosUsername: row.veripagosUsername,
     veripagosPassword: row.veripagosPassword,
+    banecoUsername: row.banecoUsername,
+    banecoPassword: row.banecoPassword,
+    banecoAesKey: row.banecoAesKey,
+    banecoCuenta: row.banecoCuenta,
     planes,
     qrPagoUrl: row.qrPagoUrl,
     pushoverUserKey: row.pushoverUserKey,
