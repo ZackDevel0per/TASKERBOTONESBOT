@@ -434,6 +434,15 @@
           <div><label>VeriPagos Usuario</label><input type="text" name="veripagosUsername" placeholder="ej: comercialanthonella" /></div>
           <div><label>VeriPagos Contraseña</label><input type="password" name="veripagosPassword" placeholder="••••••••" /></div>
 
+          <div class="form-full" style="border-top:1px solid var(--border);padding-top:16px;margin-top:4px;">
+            <p style="font-size:12px;color:var(--muted);margin:0 0 12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">🏦 Banco Económico — API QR Simple</p>
+            <p style="font-size:12px;color:var(--muted);margin:0 0 12px">La contraseña y el número de cuenta se cifran con AES-256 en cada transacción. El token de acceso se renueva automáticamente (vence cada 30 min).</p>
+          </div>
+          <div><label>Baneco Usuario</label><input type="text" name="banecoUsername" placeholder="ej: 26551010" /></div>
+          <div><label>Baneco Contraseña</label><input type="password" name="banecoPassword" placeholder="••••••••" /></div>
+          <div><label>Clave AES-256 (del banco)</label><input type="text" name="banecoAesKey" placeholder="ej: 40A318B299F245C2B697176723088629" style="font-family:monospace;font-size:12px;" /></div>
+          <div><label>Número de Cuenta</label><input type="text" name="banecoCuenta" placeholder="ej: 1234567890" style="font-family:monospace;" /></div>
+
           <div class="form-full">
             <label>QR de Pago <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">— el bot lo envía al cliente al elegir un plan</span></label>
             <div style="display:flex;gap:8px;align-items:center;">
@@ -533,6 +542,13 @@
       <div class="form-grid">
         <div><label>VeriPagos Usuario</label><input type="text" name="veripagosUsername" id="edit-veripagosUsername" placeholder="ej: comercialanthonella" /></div>
         <div><label>VeriPagos Contraseña</label><input type="password" name="veripagosPassword" id="edit-veripagosPassword" placeholder="Vacío = no cambiar" /></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:16px 0 12px;padding-top:12px;border-top:1px solid var(--border)">🏦 Banco Económico — API QR Simple</p>
+      <div class="form-grid">
+        <div><label>Baneco Usuario</label><input type="text" name="banecoUsername" id="edit-banecoUsername" placeholder="ej: 26551010" /></div>
+        <div><label>Baneco Contraseña</label><input type="password" name="banecoPassword" id="edit-banecoPassword" placeholder="Vacío = no cambiar" /></div>
+        <div><label>Clave AES-256 (del banco)</label><input type="text" name="banecoAesKey" id="edit-banecoAesKey" placeholder="ej: 40A318B299F245C2B697176723088629" style="font-family:monospace;font-size:12px;" /></div>
+        <div><label>Número de Cuenta</label><input type="text" name="banecoCuenta" id="edit-banecoCuenta" placeholder="ej: 1234567890" style="font-family:monospace;" /></div>
       </div>
       <p style="font-size:12px;color:var(--muted);margin:16px 0 12px;padding-top:12px;border-top:1px solid var(--border)">Notificaciones</p>
       <div class="form-grid">
@@ -1255,6 +1271,10 @@ async function abrirEditar(t) {
   document.getElementById('edit-googleServiceAccountJson').value = full.googleServiceAccountJson || '';
   document.getElementById('edit-veripagosUsername').value = full.veripagosUsername || '';
   document.getElementById('edit-veripagosPassword').value = '';
+  document.getElementById('edit-banecoUsername').value = full.banecoUsername || '';
+  document.getElementById('edit-banecoPassword').value = '';
+  document.getElementById('edit-banecoAesKey').value = full.banecoAesKey || '';
+  document.getElementById('edit-banecoCuenta').value = full.banecoCuenta || '';
   document.getElementById('edit-pushoverUserKey').value = full.pushoverUserKey || '';
   document.getElementById('edit-pushoverApiToken').value = full.pushoverApiToken || '';
   document.getElementById('edit-enlaceGrupo').value = full.enlaceGrupo || '';
